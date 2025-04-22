@@ -1,8 +1,9 @@
 {
   "name": "@agustin.fiorenza/qventus-challenge",
   "description": "Login component for qventus applications",
-  "version": "0.0.1",
+  "version": "0.0.0",
   "type": "module",
+  "private": "false",
   "main": "dist/index.cjs.js",
   "module": "dist/index.es.js",
   "types": "dist/index.d.ts",
@@ -28,7 +29,7 @@
     "storybook": "storybook dev -p 6006",
     "build-storybook": "storybook build",
     "format": "prettier --write \"src/**/*.{ts,tsx,css}\" \"*.{json,md,ts}\"",
-    "prepare": "vite format && vite build"
+    "prepare": "yarn format && vite build"
   },
   "dependencies": {
     "@heroicons/react": "^2.2.0",
