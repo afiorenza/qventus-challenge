@@ -1,5 +1,5 @@
 {
-  "name": "qventus-challenge",
+  "name": "@agustin.fiorenza/qventus-challenge",
   "description": "Login component for qventus applications",
   "version": "0.0.0",
   "type": "module",
@@ -22,16 +22,16 @@
   },
   "scripts": {
     "dev": "vite",
-    "build": "tsc -b && vite build",
-    "build:lib": "vite build && yarn build:types",
+    "build": "vite build && yarn build:types",
     "build:types": "tsc --emitDeclarationOnly",
     "lint": "eslint .",
-    "preview": "vite preview",
     "storybook": "storybook dev -p 6006",
     "build-storybook": "storybook build",
     "format": "prettier --write \"src/**/*.{ts,tsx,css}\" \"*.{json,md,ts}\""
   },
   "dependencies": {
+    "@heroicons/react": "^2.2.0",
+    "classnames": "^2.5.1",
     "react": "^19.0.0",
     "yalc": "^1.0.0-pre.53"
   },
@@ -39,6 +39,7 @@
     "@chromatic-com/storybook": "^3",
     "@eslint/js": "^9.22.0",
     "@storybook/addon-a11y": "^8.6.12",
+    "@storybook/addon-actions": "^8.6.12",
     "@storybook/addon-essentials": "^8.6.12",
     "@storybook/addon-interactions": "^8.6.12",
     "@storybook/blocks": "^8.6.12",
