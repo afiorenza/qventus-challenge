@@ -1,6 +1,3 @@
 import './index.css';
 
-export {
-  default as LoginIndicator,
-  type LoginIndicatorProps,
-} from './components/LoginIndicator';
+export { default as Login, type LoginProps } from './components/Login';

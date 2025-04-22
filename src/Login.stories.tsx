@@ -1,41 +1,13 @@
 import type { Meta, StoryObj } from '@storybook/react';
-import { userEvent, within, expect, fn } from '@storybook/test';
-import { useState } from 'react';
+import { userEvent, expect } from '@storybook/test';
+import { MinusCircleIcon, PlusCircleIcon } from '@heroicons/react/16/solid';
 
 import { action } from '@storybook/addon-actions';
 
-import { LoginIndicator, type LoginIndicatorProps } from './';
+import { Login } from './';
 
-const Login = (args: LoginIndicatorProps) => {
-  const [value, setValue] = useState('');
-
-  return (
-    <div className="flex flex-row items-center gap-4">
-      <div>
-        <input
-          className="border p-0.5"
-          onChange={event => setValue(event.currentTarget.value)}
-          value={value}
-        />
-      </div>
-
-      <LoginIndicator {...args} value={value} />
-    </div>
-  );
-};
-
-const meta: Meta<typeof LoginIndicator> = {
-  component: LoginIndicator,
-  beforeEach: async ({ args, mount }) => {
-    await mount(<Login {...args} />);
-  },
-};
-
-export default meta;
-
-type Story = StoryObj<typeof LoginIndicator>;
-
-export const Default = {
+const meta: Meta<typeof Login> = {
+  component: Login,
   args: {
     onChange: action('change'),
     options: [
@@ -45,8 +17,33 @@ export const Default = {
       'hasNoConsecutiveLetter',
     ],
   },
+  argTypes: {
+    options: {
+      control: 'inline-check',
+      options: [
+        'hasDigit',
+        'hasUpperCaseLetter',
+        'hasSpecialCharacter',
+        'hasNoConsecutiveLetter',
+      ],
+    },
+    iconSize: {
+      control: 'select',
+      options: ['sm', 'md', 'lg', 'xl'],
+    },
+  },
+  beforeEach: async ({ args, mount }) => {
+    await mount(<Login {...args} />);
+  },
+};
+
+export default meta;
+
+type Story = StoryObj<typeof Login>;
+
+export const Default = {
   play: async ({ args, canvas, step }) => {
-    const input = await canvas.findByRole('input');
+    const input = await canvas.findByRole('textbox');
 
     await step('It should comply digit validation', async () => {
       await userEvent.type(input, '1');
@@ -54,6 +51,12 @@ export const Default = {
       await expect(
         (await canvas.findByText('Has a number 0-9')).ariaLabel
       ).toBe('Has a number 0-9 is true');
+
+      await expect(args.onChange).toHaveBeenCalledWith({
+        failedRules: ['hasUpperCaseLetter', 'hasSpecialCharacter'],
+        isValid: false,
+        value: '1',
+      });
     });
 
     await step('It should comply upper case validation', async () => {
@@ -62,6 +65,12 @@ export const Default = {
       await expect(
         (await canvas.findByText('Has an uppercase letter')).ariaLabel
       ).toBe('Has an uppercase letter is true');
+
+      await expect(args.onChange).toHaveBeenCalledWith({
+        failedRules: ['hasSpecialCharacter'],
+        isValid: false,
+        value: '1A',
+      });
     });
 
     await step('It should comply special character validation', async () => {
@@ -70,11 +79,12 @@ export const Default = {
       await expect(
         (await canvas.findByText('Has a special character !@#$%^&*')).ariaLabel
       ).toBe('Has a special character !@#$%^&* is true');
-    });
 
-    await expect(args.onChange).toHaveBeenCalledWith({
-      isValid: true,
-      failedRules: [],
+      await expect(args.onChange).toHaveBeenCalledWith({
+        failedRules: [],
+        isValid: true,
+        value: '1A$',
+      });
     });
 
     await step(
@@ -89,6 +99,7 @@ export const Default = {
         await expect(args.onChange).toHaveBeenCalledWith({
           isValid: false,
           failedRules: ['hasNoConsecutiveLetter'],
+          value: '1A$AA',
         });
       }
     );
@@ -104,8 +115,9 @@ export const Default = {
       ).toBe('Has NO consecutive letters is true');
 
       await expect(args.onChange).toHaveBeenCalledWith({
-        isValid: true,
         failedRules: [],
+        isValid: true,
+        value: '1A$',
       });
     });
   },
@@ -114,9 +126,6 @@ export const Default = {
 export const WithOneRuleOnly = {
   args: {
     options: ['hasDigit'],
-  },
-  play: ({ canvas }) => {
-    canvas.findAllByAltText;
   },
 } satisfies Story;
 
@@ -129,5 +138,31 @@ export const WithCustomStyle = {
       'hasNoConsecutiveLetter',
     ],
     className: 'flex-row',
+  },
+} satisfies Story;
+
+export const WithPlaceholder = {
+  args: {
+    placeholder: 'I am a custom placeholder',
+  },
+  play: async ({ args, canvas }) => {
+    await expect(
+      await canvas.findByPlaceholderText(args.placeholder!)
+    ).toBeVisible();
+  },
+} satisfies Story;
+
+export const WithCustomIcons = {
+  args: {
+    icons: {
+      valid: <PlusCircleIcon className="size-6 fill-yellow-300" />,
+      invalid: <MinusCircleIcon className="size-6 fill-red-400" />,
+    },
+  },
+} satisfies Story;
+
+export const WithCustomIconSize = {
+  args: {
+    iconSize: 'lg',
   },
 } satisfies Story;
