@@ -27,7 +27,8 @@
     "lint": "eslint .",
     "storybook": "storybook dev -p 6006",
     "build-storybook": "storybook build",
-    "format": "prettier --write \"src/**/*.{ts,tsx,css}\" \"*.{json,md,ts}\""
+    "format": "prettier --write \"src/**/*.{ts,tsx,css}\" \"*.{json,md,ts}\"",
+    "prepare": "vite format && vite build"
   },
   "dependencies": {
     "@heroicons/react": "^2.2.0",
