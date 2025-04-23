@@ -137,7 +137,12 @@ export const WithCustomStyle = {
       'hasSpecialCharacter',
       'hasNoConsecutiveLetter',
     ],
-    className: 'flex-row',
+    classes: {
+      root: 'flex-col',
+      input:
+        'w-full p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 transition-colors',
+      list: 'text-xs',
+    },
   },
 } satisfies Story;
 

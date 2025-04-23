@@ -7,7 +7,11 @@ import {
 import Option, { type OptionProps } from './Option';
 
 export type LoginProps = {
-  className?: string;
+  classes?: {
+    root?: string;
+    input?: string;
+    list?: string;
+  };
   onChange?: ({
     failedRules,
     isValid,
@@ -22,7 +26,7 @@ export type LoginProps = {
 } & Pick<OptionProps, 'iconSize' | 'icons'>;
 
 const Login = ({
-  className,
+  classes,
   onChange,
   options = [],
   placeholder = 'Type your password...',
@@ -57,17 +61,17 @@ const Login = ({
   }, [onChange, result.isValid, result.failedRules.length]);
 
   return (
-    <div className="flex flex-row items-center gap-4">
+    <div className={classNames('flex items-center gap-4', classes?.root)}>
       <div>
         <input
-          className="border p-0.5"
+          className={classNames('border p-0.5', classes?.input)}
           onChange={event => setValue(event.currentTarget.value)}
           value={value}
           placeholder={placeholder}
         />
       </div>
 
-      <ul className={classNames('flex flex-col items-start', className)}>
+      <ul className={classNames('flex flex-col items-start', classes?.list)}>
         {options.length > 0 && (
           <>
             {options.map(option => (
