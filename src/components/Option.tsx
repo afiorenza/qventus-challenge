@@ -20,7 +20,7 @@ export type OptionProps = {
     valid: ReactElement;
     invalid: ReactElement;
   };
-  iconSize: IconSizes;
+  iconSize?: IconSizes;
   option: OptionNames;
   value: string;
 };

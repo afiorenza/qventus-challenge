@@ -1,11 +1,12 @@
 import { defineConfig } from 'vite';
+import { libInjectCss } from 'vite-plugin-lib-inject-css';
 import { resolve } from 'path';
+import dts from 'vite-plugin-dts';
 import react from '@vitejs/plugin-react-swc';
 import tailwindcss from '@tailwindcss/vite';
-import dts from 'vite-plugin-dts';
 
 export default defineConfig({
-  plugins: [react(), tailwindcss(), dts()],
+  plugins: [react(), tailwindcss(), dts(), libInjectCss()],
   build: {
     lib: {
       entry: resolve(__dirname, 'src/index.tsx'),

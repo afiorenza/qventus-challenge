@@ -19,7 +19,7 @@ export type LoginProps = {
   }) => void;
   options: OptionNames[];
   placeholder?: string;
-} & Partial<Pick<OptionProps, 'iconSize' | 'icons'>>;
+} & Pick<OptionProps, 'iconSize' | 'icons'>;
 
 const Login = ({
   className,
