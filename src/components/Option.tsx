@@ -6,14 +6,14 @@ import { CheckCircleIcon, XCircleIcon } from '@heroicons/react/16/solid';
 import { ReactElement } from 'react';
 import classNames from 'classnames';
 
-export const iconSizes = {
+const iconSizes = {
   sm: 'size-6',
   md: 'size-8',
   lg: 'size-10',
   xl: 'size-12',
 } as const;
 
-export type IconSizes = keyof typeof iconSizes;
+type IconSizes = keyof typeof iconSizes;
 
 export type OptionProps = {
   icons?: {

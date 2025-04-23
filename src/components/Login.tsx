@@ -1,4 +1,4 @@
-import { ReactElement, useEffect, useState, useMemo } from 'react';
+import { useEffect, useState, useMemo } from 'react';
 import classNames from 'classnames';
 import {
   type OptionNames,
@@ -54,7 +54,7 @@ const Login = ({
 
   useEffect(() => {
     if (onChange) onChange(result);
-  }, [result.isValid, result.failedRules.length]);
+  }, [onChange, result.isValid, result.failedRules.length]);
 
   return (
     <div className="flex flex-row items-center gap-4">
