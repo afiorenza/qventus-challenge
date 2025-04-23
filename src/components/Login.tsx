@@ -19,7 +19,7 @@ export type LoginProps = {
   }) => void;
   options: OptionNames[];
   placeholder?: string;
-} & Omit<OptionProps, 'value | option'>;
+} & Pick<OptionProps, 'iconSize' | 'icons'>;
 
 const Login = ({
   className,

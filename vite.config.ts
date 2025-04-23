@@ -12,6 +12,7 @@ export default defineConfig({
       name: '@agustin.fiorenza/qventus-challenge',
       fileName: format => `index.${format === 'es' ? 'es' : 'cjs'}.js`,
       formats: ['es', 'cjs'],
+      cssFileName: 'index',
     },
     rollupOptions: {
       external: ['react', 'tailwindcss'],
