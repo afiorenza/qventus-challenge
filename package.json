@@ -17,7 +17,7 @@
       "require": "./dist/index.cjs.js"
     },
     "./styles": {
-      "import": "./dist/style.css"
+      "import": "./dist/index.css"
     }
   },
   "scripts": {
